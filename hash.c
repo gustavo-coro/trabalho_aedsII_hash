@@ -61,15 +61,3 @@ void printTable (hashData* table[]) {
     }
 }
 
-printData findItem (printData word, hashData* table[]) {
-    for (int i = word.key; ; i++) {
-        if (table[i]->key == -1) {
-            return word;
-        } else if (strcmp(table[i]->data, word.data) == 0) {
-            size_t sizeWord = strlen(word.lines);
-            strcat(word.lines[sizeWord], (table[i]->line + " "));
-            word.lines[sizeWord+1] = '\0';
-            word.timesInText += table[i]->timesInLine;
-        }
-    }
-}

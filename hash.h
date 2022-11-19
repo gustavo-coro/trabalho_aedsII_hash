@@ -13,17 +13,10 @@ typedef struct hashData {
     int timesInLine;
 } hashData;
 
-typedef struct printData {
-    char data[21];
-    int key;
-    char* lines;
-    int timesInText;
-} printData;
 
 void startTable (hashData*[]);
 unsigned int stringHash (char*);
 void insertData (hashData*, hashData*[]);
 void printTable (hashData*[]);
-printData findItem (printData, hashData*[]);
 
 #endif

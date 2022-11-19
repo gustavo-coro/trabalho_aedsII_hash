@@ -68,33 +68,7 @@ int main(int argc, char **argv[]) {
   }
 
   //ler arquivo de saida e buscar as palavras
-  str[0] = 0;
-  int numberWords = 0;
-  printData* dta;
-  int index = 0;
-  while (fgets(str, MAX_LENGTH_STR+1, arqOut) != NULL) {
-    size_t sizeLine = strlen(str);
-    str[sizeLine-1] = '\0';
-    if ((str[0] >= 48) && (str[0] <= 57)) {
-      numberWords = atoi(str);
-      dta = (printData*) malloc(numberWords * sizeof(printData));
-      index = -1;
-    } else {
-      strcpy(dta[index].data, str);
-      dta[index].key = stringHash(dta[index].data);
-      dta[index].lines[0] = "\0";
-      dta[index].timesInText = 0;
-      findItem(dta[index],table);
-    }
-    index++;
-  }
 
-  for (int i = 0; i < index; i++) {
-    printf("\n%d ", dta[i].timesInText);
-    fputs(dta[i].data, stdout);
-    fputs(dta[i].lines, stdout);
-    pr
-  }
 
 
 
