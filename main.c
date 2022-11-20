@@ -5,6 +5,7 @@
 
 int main(int argc, char **argv[]) {
 
+  //analizar se os arquivos necessarios para a execucao foram colocados
   if (argc < 3) {
     perror("Faltam parametros. Sao necessarios 2 arquivos para executar corretamente.\n");
     return -1;
@@ -30,28 +31,36 @@ int main(int argc, char **argv[]) {
   startTable(table);
 
   while (fgets(str, MAX_NUMBER_WORDS+1 ,arq) != NULL) {
+    //ler todos os caracteres da linha
     for (int i = 0; i < strlen(str); i++) {
+      //adiciona o caracter na string se for uma letra
+      //ignora numeros, caracteres especiais e separa cada palavra da linha
       if ((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122)) {
         if (str[i] >= 65 && str[i] <= 90) {
+          //tratamento para letras maiusculas
           str[i] = str[i] + 32;
         }
+        //adiciona o caracter na string
         size_t sizeWord = strlen(word);
         word[sizeWord] = str[i];
         word[sizeWord+1] = '\0';
       } else {
-        if (word[0] != '\0') {
+        //chama a funcao hash e adiciona a string na tabela
+        //ignora strings vazias e com uma letra
+        if ((strlen(word) > 1)) {
           //chamar o hash
           hashData* temp = (hashData*) malloc(sizeof(hashData));
-          //temp->data = word;
           strcpy(temp->data, word);
           temp->line = lineCount;
           temp->key = stringHash(temp->data);
           insertData(temp, table);
           free(temp);
         }
+        //adiciona uma linha caso chegue na quebra de linha (\n)
         if (str[i] == 10) {
           lineCount++;
         }
+        //reinicia a string
         word[0] = '\0';
       }
     }
@@ -59,7 +68,6 @@ int main(int argc, char **argv[]) {
   if (word[0] != '\0') {
     //chama o hash para a ultima palavra do arquivo
     hashData* temp = (hashData*) malloc(sizeof(hashData));
-    //temp->data = word;
     strcpy(temp->data, word);
     temp->line = lineCount;
     temp->key = stringHash(temp->data);
@@ -69,8 +77,34 @@ int main(int argc, char **argv[]) {
 
   //ler arquivo de saida e buscar as palavras
 
+  str[0] = '\0';
+  //le a primeira linha do arquivo com o valor numerico
+  //esse valor nao sera necessario para imprimir as palavras
+  size_t sizeStr;
+  fgets(str, 50, arqOut);
+  sizeStr = strlen(str);
+  if (str[sizeStr-1] == 10) {
+    str[sizeStr-1] = '\0';
+  }
 
-
+  while (fgets(str, 50, arqOut) != NULL) {
+    //lidando com a quebra de linha
+    sizeStr = strlen(str);
+    if (str[sizeStr-1] == 10) {
+      str[sizeStr-1] = '\0';
+      sizeStr = strlen(str);
+    }
+    for (int i = 0; i < strlen(str); i++) {
+      if (str[i] >= 65 && str[i] <= 90) {
+        str[i] = str[i] + 32;
+      }
+    }
+    int hash = stringHash(str);
+    int timesText;
+    char* lines;
+    findItem(table, str, hash, &timesText, lines);
+    printf("%d %s %s\n", timesText, str, lines);
+  }
 
 
   fclose(arq);

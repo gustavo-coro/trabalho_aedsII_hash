@@ -61,3 +61,17 @@ void printTable (hashData* table[]) {
     }
 }
 
+void findItem (hashData* table[], char* str, int hash, int* timesText, char* lines) {
+    *timesText = 0;
+    lines[0] = '\0';
+    for (int i = hash; ; i++) {
+        if (table[i]->key == -1) {
+            return 0;
+        } else if (strcmp(str, table[i]->data) == 0) {
+            *timesText += table[i]->timesInLine;
+            char* temp;
+            sprintf(temp, "%d%s", table[i]->line, " ");
+            strcat(lines,temp);
+        }
+    }
+}

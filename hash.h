@@ -18,5 +18,6 @@ void startTable (hashData*[]);
 unsigned int stringHash (char*);
 void insertData (hashData*, hashData*[]);
 void printTable (hashData*[]);
+void findItem (hashData*[], char*,int,int*,char*);
 
 #endif
