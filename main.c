@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "hash.h"
+#include "list.h"
 
-int main(int argc, char **argv[]) {
+int main(int argc, char *argv[]) {
 
   //analizar se os arquivos necessarios para a execucao foram colocados
   if (argc < 3) {
@@ -99,11 +100,22 @@ int main(int argc, char **argv[]) {
         str[i] = str[i] + 32;
       }
     }
+    /*usar uma lista para armazenar as linhas em que a palavra aparece*/
+    list* lines = (list*) malloc(sizeof(list));
+    startList(lines);
+
     int hash = stringHash(str);
     int timesText;
-    char* lines;
     findItem(table, str, hash, &timesText, lines);
-    printf("%d %s %s\n", timesText, str, lines);
+    printf("%d %s ", timesText, str);
+    for (int i = 1; i <= sizeList(lines); i++) {
+      node* receive = (node*) malloc(sizeof(node));
+      receive = getItem(lines, i);
+      printf("%d ", receive->data);
+      free(receive);
+    }
+    printf("\n");
+    free(lines);
   }
 
 

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "hash.h"
+#include "list.h"
 
 const int MAX_SIZE = 521;
 const int MAX_LENGTH_STR = 20;
@@ -9,12 +10,11 @@ const int MAX_NUMBER_WORDS = 80;
 
 void startTable (hashData* table[]) {
     for (int i = 0; i < MAX_SIZE; i++) {
-        hashData* d = (hashData*) malloc(sizeof(hashData));
-        d->data[0] = '\0';
-        d->key = -1;
-        d->line = 0;
-        d->timesInLine = 0;
-        table[i] = d;
+        table[i] = (hashData*) malloc(sizeof(hashData));
+        table[i]->data[0] = '\0';
+        table[i]->key = -1;
+        table[i]->line = 0;
+        table[i]->timesInLine = 0;
     }
 }
 
@@ -45,7 +45,7 @@ void insertData (hashData* newData, hashData* table[]) {
             }
         }
         if (i == MAX_SIZE) {
-            i = 0;
+            i = -1;
         }
     }
 }
@@ -61,17 +61,19 @@ void printTable (hashData* table[]) {
     }
 }
 
-void findItem (hashData* table[], char* str, int hash, int* timesText, char* lines) {
+void findItem (hashData* table[], char* str, int hash, int* timesText, list* lines) {
     *timesText = 0;
-    lines[0] = '\0';
     for (int i = hash; ; i++) {
         if (table[i]->key == -1) {
-            return 0;
+            return;
         } else if (strcmp(str, table[i]->data) == 0) {
             *timesText += table[i]->timesInLine;
-            char* temp;
-            sprintf(temp, "%d%s", table[i]->line, " ");
-            strcat(lines,temp);
+            node receive;
+            receive.data = table[i]->line;
+            addItem(lines, receive);
+        }
+        if (i == MAX_SIZE) {
+            i = -1;
         }
     }
 }
