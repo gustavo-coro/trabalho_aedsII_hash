@@ -1,0 +1,9 @@
+Aluno:
+Gustavo Henriques da Cunha
+Matrícula: 222050024
+
+Instruções:
+Para compilar o código deve ser usado o arquivo makefile, usando no terminal o comando 'make all'.
+Assim como pedido nas instruções do trabalho, devem ser passados dois arquivos para a execução do programa,
+do tipo './main input.txt pesquisa.txt', onde input.txt será o arquivo com o texto a ser armazenado na hash,
+e pesquisa.txt o arquivo com as palavras a ser pesquisadas.

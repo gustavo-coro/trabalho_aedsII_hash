@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 
   while (fgets(str, MAX_NUMBER_WORDS+1 ,arq) != NULL) {
     //ler todos os caracteres da linha
-    for (int i = 0; i < strlen(str); i++) {
+    for (int i = 0; i < (int) strlen(str); i++) {
       //adiciona o caracter na string se for uma letra
       //ignora numeros, caracteres especiais e separa cada palavra da linha
       if ((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122)) {
@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
       str[sizeStr-1] = '\0';
       sizeStr = strlen(str);
     }
-    for (int i = 0; i < strlen(str); i++) {
+    for (int i = 0; i < (int) strlen(str); i++) {
       if (str[i] >= 65 && str[i] <= 90) {
         str[i] = str[i] + 32;
       }
@@ -109,10 +109,7 @@ int main(int argc, char *argv[]) {
     findItem(table, str, hash, &timesText, lines);
     printf("%d %s ", timesText, str);
     for (int i = 1; i <= sizeList(lines); i++) {
-      node* receive = (node*) malloc(sizeof(node));
-      receive = getItem(lines, i);
-      printf("%d ", receive->data);
-      free(receive);
+      printf("%d ", getItem(lines, i)->data);
     }
     printf("\n");
     free(lines);

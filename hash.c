@@ -22,7 +22,7 @@ unsigned int stringHash (char* str) {
     int cod = 0;
     unsigned int hash = 257;
 
-    while (cod = *str++) {
+    while ((cod = *str++)) {
       hash = hash * 33 + cod;
     }
     hash = hash%521;
