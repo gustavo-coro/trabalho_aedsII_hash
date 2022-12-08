@@ -8,7 +8,6 @@ extern const int MAX_LENGTH_STR;
 extern const int MAX_NUMBER_WORDS;
 
 typedef struct hashData {
-    //char* data;
     char data[21];
     int key;
     int line;

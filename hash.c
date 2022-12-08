@@ -32,7 +32,6 @@ unsigned int stringHash (char* str) {
 void insertData (hashData* newData, hashData* table[]) {
     for (int i = newData->key; ; i++) {
         if (table[i]->key == -1) {
-            //table[i]->data = newData->data;
             strcpy(table[i]->data, newData->data);
             table[i]->key = newData->key;
             table[i]->line = newData->line;
